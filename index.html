@@ -510,7 +510,7 @@
     <!-- Music Button -->
     <div class="music-btn" onclick="toggleMusic()" id="musicBtn">🎵</div>
 
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop autoplay>
         <!-- STEP 1: Replace YOUR_SONG_URL_HERE.mp3 with your actual song URL -->
         <!-- Example: <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> -->
         <source src="Song.mp3" type="audio/mpeg">
@@ -658,86 +658,90 @@
     </div>
 
     <script>
-        // Music Control
-        let musicPlaying = false;
-        const music = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
+    // Music Control
+    let musicPlaying = false;
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
 
-        function toggleMusic() {
-            if (musicPlaying) {
-                music.pause();
-                musicBtn.textContent = '🔇';
-                musicPlaying = false;
-            } else {
-                music.play().then(() => {
-                    musicBtn.textContent = '🎵';
-                    musicPlaying = true;
-                }).catch(() => {
-                    alert('Add your song URL to play music! 🎵');
-                });
-            }
-        }
-
-        // Scroll to story
-        function scrollToStory() {
-            document.getElementById('story').scrollIntoView({ behavior: 'smooth' });
-            
-            // Try to play music
+    function toggleMusic() {
+        if (musicPlaying) {
+            music.pause();
+            musicBtn.textContent = '🔇';
+            musicPlaying = false;
+        } else {
             music.play().then(() => {
                 musicBtn.textContent = '🎵';
                 musicPlaying = true;
-            }).catch(() => {});
-        }
-
-        // Create floating hearts
-        function createFloatingHearts() {
-            const container = document.getElementById('floatingHearts');
-            const hearts = ['💕', '💖', '💗', '💝', '❤️'];
-            
-            for (let i = 0; i < 15; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-float';
-                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.top = Math.random() * 100 + '%';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                heart.style.animationDuration = (8 + Math.random() * 4) + 's';
-                container.appendChild(heart);
-            }
-        }
-
-        // Initialize
-        createFloatingHearts();
-
-        // Add entrance animations with delay
-        window.addEventListener('load', () => {
-            const sections = document.querySelectorAll('.section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            sections.forEach(section => {
-                section.style.opacity = '0';
-                section.style.transform = 'translateY(30px)';
-                section.style.transition = 'all 0.6s ease-out';
-                observer.observe(section);
+            }).catch(() => {
+                alert('Unable to play music automatically. Tap anywhere to start! 🎵');
             });
-        });
+        }
+    }
 
-        // Prevent zoom on double tap for iOS
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
-            }
-            lastTouchEnd = now;
-        }, false);
+    // Try autoplay when page loads
+    window.addEventListener('DOMContentLoaded', () => {
+        music.play().then(() => {
+            musicBtn.textContent = '🎵';
+            musicPlaying = true;
+        }).catch(() => {
+            // If autoplay is blocked, start on first user tap/click
+            document.body.addEventListener('click', () => {
+                music.play();
+                musicBtn.textContent = '🎵';
+                musicPlaying = true;
+            }, { once: true });
+        });
+    });
+
+    // Create floating hearts
+    function createFloatingHearts() {
+        const container = document.getElementById('floatingHearts');
+        const hearts = ['💕', '💖', '💗', '💝', '❤️'];
+        
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart-float';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.top = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.animationDuration = (8 + Math.random() * 4) + 's';
+            container.appendChild(heart);
+        }
+    }
+
+    // Initialize
+    createFloatingHearts();
+
+    // Add entrance animations with delay
+    window.addEventListener('load', () => {
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.6s ease-out';
+            observer.observe(section);
+        });
+    });
+
+    // Prevent zoom on double tap for iOS
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
     </script>
 </body>
 </html>
