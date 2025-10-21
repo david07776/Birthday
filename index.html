@@ -104,7 +104,7 @@
 
         .timeline-item {
             position: relative;
-            padding: 20px 20px 20px 60px;
+            padding: 25px 25px 25px 80px;
             margin-bottom: 30px;
             background: linear-gradient(135deg, #fff5f7 0%, #ffe8f0 100%);
             border-radius: 20px;
@@ -114,12 +114,13 @@
 
         .timeline-icon {
             position: absolute;
-            left: 20px;
-            top: 20px;
-            font-size: 1.8rem;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
             background: white;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -164,14 +165,33 @@
             justify-content: center;
             font-size: 3rem;
             box-shadow: 0 6px 20px rgba(255, 107, 157, 0.2);
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            animation: popIn 0.6s ease-out backwards;
         }
 
+        .photo-box:nth-child(1) { animation-delay: 0.1s; }
+        .photo-box:nth-child(2) { animation-delay: 0.2s; }
+        .photo-box:nth-child(3) { animation-delay: 0.3s; }
+        .photo-box:nth-child(4) { animation-delay: 0.4s; }
+        .photo-box:nth-child(5) { animation-delay: 0.5s; }
+        .photo-box:nth-child(6) { animation-delay: 0.6s; }
+        .photo-box:nth-child(7) { animation-delay: 0.7s; }
+        .photo-box:nth-child(8) { animation-delay: 0.8s; }
+
         .photo-box:hover {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+            z-index: 10;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
         }
 
         .photo-label {
@@ -203,15 +223,24 @@
 
         .quality-card {
             background: linear-gradient(135deg, #fff5f7 0%, #ffe8f0 100%);
-            padding: 20px;
+            padding: 25px 20px;
             border-radius: 20px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(255, 107, 157, 0.1);
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: bounceIn 0.6s ease-out backwards;
         }
 
+        .quality-card:nth-child(1) { animation-delay: 0.1s; }
+        .quality-card:nth-child(2) { animation-delay: 0.2s; }
+        .quality-card:nth-child(3) { animation-delay: 0.3s; }
+        .quality-card:nth-child(4) { animation-delay: 0.4s; }
+        .quality-card:nth-child(5) { animation-delay: 0.5s; }
+        .quality-card:nth-child(6) { animation-delay: 0.6s; }
+
         .quality-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.3);
         }
 
         .quality-icon {
@@ -369,6 +398,37 @@
             }
         }
 
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            80% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(50px);
+            }
+            50% {
+                transform: scale(1.05) translateY(-10px);
+            }
+            70% {
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header h1 {
@@ -451,6 +511,8 @@
     <div class="music-btn" onclick="toggleMusic()" id="musicBtn">🎵</div>
 
     <audio id="bgMusic" loop>
+        <!-- STEP 1: Replace YOUR_SONG_URL_HERE.mp3 with your actual song URL -->
+        <!-- Example: <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> -->
         <source src="YOUR_SONG_URL_HERE.mp3" type="audio/mpeg">
     </audio>
 
@@ -511,34 +573,42 @@
             <h2 class="section-title">📸 Sweet Memories</h2>
             <div class="photo-gallery">
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-1.jpg" alt="Baby Days"> -->
                     <span>👶</span>
                     <div class="photo-label">Baby Days</div>
                 </div>
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-2.jpg" alt="Childhood"> -->
                     <span>🎀</span>
                     <div class="photo-label">Childhood</div>
                 </div>
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-3.jpg" alt="School"> -->
                     <span>🎓</span>
                     <div class="photo-label">School</div>
                 </div>
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-4.jpg" alt="Achievements"> -->
                     <span>🌟</span>
                     <div class="photo-label">Achievements</div>
                 </div>
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-5.jpg" alt="With Friends"> -->
                     <span>💕</span>
                     <div class="photo-label">With Friends</div>
                 </div>
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-6.jpg" alt="Celebrations"> -->
                     <span>🎉</span>
                     <div class="photo-label">Celebrations</div>
                 </div>
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-7.jpg" alt="Special Moments"> -->
                     <span>✨</span>
                     <div class="photo-label">Special Moments</div>
                 </div>
                 <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-8.jpg" alt="Today"> -->
                     <span>💫</span>
                     <div class="photo-label">Today</div>
                 </div>
