@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Your Beautiful Journey 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #5a3e36;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Cute floating hearts background */
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: floatHeart 10s infinite ease-in-out;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #ff6b9d;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(255, 107, 157, 0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #8b6f65;
+            font-weight: 500;
+        }
+
+        .header .emoji {
+            font-size: 3rem;
+            display: block;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        /* Content Sections */
+        .section {
+            background: white;
+            border-radius: 25px;
+            padding: 30px 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.15);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #ff6b9d;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 25px 25px 25px 80px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe8f0 100%);
+            border-radius: 20px;
+            border-left: 4px solid #ff6b9d;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.2);
+        }
+
+        .timeline-year {
+            font-size: 1rem;
+            color: #ff6b9d;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            color: #5a3e36;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-text {
+            font-size: 1rem;
+            color: #8b6f65;
+            line-height: 1.6;
+        }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-box {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: popIn 0.6s ease-out backwards;
+        }
+
+        .photo-box:nth-child(1) { animation-delay: 0.1s; }
+        .photo-box:nth-child(2) { animation-delay: 0.2s; }
+        .photo-box:nth-child(3) { animation-delay: 0.3s; }
+        .photo-box:nth-child(4) { animation-delay: 0.4s; }
+        .photo-box:nth-child(5) { animation-delay: 0.5s; }
+        .photo-box:nth-child(6) { animation-delay: 0.6s; }
+        .photo-box:nth-child(7) { animation-delay: 0.7s; }
+        .photo-box:nth-child(8) { animation-delay: 0.8s; }
+
+        .photo-box:hover {
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+            z-index: 10;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 107, 157, 0.9);
+            color: white;
+            padding: 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 600;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-box:hover .photo-label {
+            transform: translateY(0);
+        }
+
+        /* Qualities Grid */
+        .qualities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quality-card {
+            background: linear-gradient(135deg, #fff5f7 0%, #ffe8f0 100%);
+            padding: 25px 20px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: bounceIn 0.6s ease-out backwards;
+        }
+
+        .quality-card:nth-child(1) { animation-delay: 0.1s; }
+        .quality-card:nth-child(2) { animation-delay: 0.2s; }
+        .quality-card:nth-child(3) { animation-delay: 0.3s; }
+        .quality-card:nth-child(4) { animation-delay: 0.4s; }
+        .quality-card:nth-child(5) { animation-delay: 0.5s; }
+        .quality-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .quality-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.3);
+        }
+
+        .quality-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .quality-title {
+            font-size: 1.1rem;
+            color: #5a3e36;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .quality-text {
+            font-size: 0.9rem;
+            color: #8b6f65;
+        }
+
+        /* Message Box */
+        .message-box {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            padding: 40px 30px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 30px auto;
+            max-width: 800px;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        .message-box h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .message-box p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        /* Music Button */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(255, 107, 157, 0.4);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            border: 3px solid white;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Start Button */
+        .start-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 25px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Quicksand', sans-serif;
+            margin-top: 20px;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.5);
+        }
+
+        .start-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes floatHeart {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px) rotate(10deg);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-180deg);
+            }
+            80% {
+                transform: scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(50px);
+            }
+            50% {
+                transform: scale(1.05) translateY(-10px);
+            }
+            70% {
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header .emoji {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 25px 15px;
+                margin: 15px 10px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .timeline-item {
+                padding: 15px 15px 15px 55px;
+            }
+
+            .timeline-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            .photo-box {
+                font-size: 2.5rem;
+            }
+
+            .qualities-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .message-box {
+                padding: 30px 20px;
+            }
+
+            .message-box h2 {
+                font-size: 1.5rem;
+            }
+
+            .message-box p {
+                font-size: 1rem;
+            }
+
+            .music-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* iOS Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+        }
+
+        /* Smooth scrolling for all devices */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Music Button -->
+    <div class="music-btn" onclick="toggleMusic()" id="musicBtn">🎵</div>
+
+    <audio id="bgMusic" loop>
+        <!-- STEP 1: Replace YOUR_SONG_URL_HERE.mp3 with your actual song URL -->
+        <!-- Example: <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> -->
+        <source src="YOUR_SONG_URL_HERE.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <span class="emoji">💕</span>
+            <h1>Her Beautiful Journey</h1>
+            <p>A story worth celebrating</p>
+            <button class="start-btn" onclick="scrollToStory()">Begin ✨</button>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="section" id="story">
+            <h2 class="section-title">📖 The Story</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">🌟</div>
+                    <div class="timeline-year">Birth Year</div>
+                    <div class="timeline-title">A Star Was Born</div>
+                    <p class="timeline-text">The day the world became brighter - when she arrived and brought joy to everyone.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">🎈</div>
+                    <div class="timeline-year">Childhood</div>
+                    <div class="timeline-title">Growing with Love</div>
+                    <p class="timeline-text">Full of laughter, curiosity, and endless adventures. Creating memories that would last forever.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">📚</div>
+                    <div class="timeline-year">School Days</div>
+                    <div class="timeline-title">Learning & Dreaming</div>
+                    <p class="timeline-text">Discovering passions, making friends, and shaping the amazing person she would become.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">🌸</div>
+                    <div class="timeline-year">Teen Years</div>
+                    <div class="timeline-title">Blossoming Beautifully</div>
+                    <p class="timeline-text">Finding her voice, her style, and her dreams. Becoming the incredible person she is.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">✨</div>
+                    <div class="timeline-year">Today</div>
+                    <div class="timeline-title">Living Her Best Life</div>
+                    <p class="timeline-text">Inspiring others and creating new beautiful chapters every single day.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Gallery Section -->
+        <div class="section">
+            <h2 class="section-title">📸 Sweet Memories</h2>
+            <div class="photo-gallery">
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-1.jpg" alt="Baby Days"> -->
+                    <span>👶</span>
+                    <div class="photo-label">Baby Days</div>
+                </div>
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-2.jpg" alt="Childhood"> -->
+                    <span>🎀</span>
+                    <div class="photo-label">Childhood</div>
+                </div>
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-3.jpg" alt="School"> -->
+                    <span>🎓</span>
+                    <div class="photo-label">School</div>
+                </div>
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-4.jpg" alt="Achievements"> -->
+                    <span>🌟</span>
+                    <div class="photo-label">Achievements</div>
+                </div>
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-5.jpg" alt="With Friends"> -->
+                    <span>💕</span>
+                    <div class="photo-label">With Friends</div>
+                </div>
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-6.jpg" alt="Celebrations"> -->
+                    <span>🎉</span>
+                    <div class="photo-label">Celebrations</div>
+                </div>
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-7.jpg" alt="Special Moments"> -->
+                    <span>✨</span>
+                    <div class="photo-label">Special Moments</div>
+                </div>
+                <div class="photo-box">
+                    <!-- Replace this with: <img src="your-photo-url-8.jpg" alt="Today"> -->
+                    <span>💫</span>
+                    <div class="photo-label">Today</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Qualities Section -->
+        <div class="section">
+            <h2 class="section-title">💖 What Makes Her Special</h2>
+            <div class="qualities-grid">
+                <div class="quality-card">
+                    <div class="quality-icon">😊</div>
+                    <div class="quality-title">Bright Smile</div>
+                    <p class="quality-text">Lights up every room</p>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon">❤️</div>
+                    <div class="quality-title">Kind Heart</div>
+                    <p class="quality-text">Always caring</p>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon">🎨</div>
+                    <div class="quality-title">Creative Soul</div>
+                    <p class="quality-text">Full of ideas</p>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon">💪</div>
+                    <div class="quality-title">Strong Spirit</div>
+                    <p class="quality-text">Never gives up</p>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon">✨</div>
+                    <div class="quality-title">Inspiring</div>
+                    <p class="quality-text">Motivates others</p>
+                </div>
+                <div class="quality-card">
+                    <div class="quality-icon">🌟</div>
+                    <div class="quality-title">Unique</div>
+                    <p class="quality-text">One of a kind</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Message -->
+        <div class="message-box">
+            <h2>💝 Happy Birthday!</h2>
+            <p>Your journey has been <span class="highlight">beautiful</span> and inspiring.</p>
+            <p>You've grown into someone truly <span class="highlight">amazing</span>.</p>
+            <p>Every moment has shaped you into the <span class="highlight">wonderful person</span> you are today.</p>
+            <p>Here's to celebrating YOU and the incredible journey ahead! 🎉</p>
+            <p style="font-size: 1.5rem; margin-top: 20px;">✨ May all your dreams come true ✨</p>
+        </div>
+    </div>
+
+    <script>
+        // Music Control
+        let musicPlaying = false;
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+
+        function toggleMusic() {
+            if (musicPlaying) {
+                music.pause();
+                musicBtn.textContent = '🔇';
+                musicPlaying = false;
+            } else {
+                music.play().then(() => {
+                    musicBtn.textContent = '🎵';
+                    musicPlaying = true;
+                }).catch(() => {
+                    alert('Add your song URL to play music! 🎵');
+                });
+            }
+        }
+
+        // Scroll to story
+        function scrollToStory() {
+            document.getElementById('story').scrollIntoView({ behavior: 'smooth' });
+            
+            // Try to play music
+            music.play().then(() => {
+                musicBtn.textContent = '🎵';
+                musicPlaying = true;
+            }).catch(() => {});
+        }
+
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['💕', '💖', '💗', '💝', '❤️'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.top = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.animationDuration = (8 + Math.random() * 4) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Initialize
+        createFloatingHearts();
+
+        // Add entrance animations with delay
+        window.addEventListener('load', () => {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.6s ease-out';
+                observer.observe(section);
+            });
+        });
+
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
